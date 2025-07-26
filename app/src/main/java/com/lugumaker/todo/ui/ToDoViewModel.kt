@@ -19,6 +19,7 @@ import java.time.LocalDateTime
  */
 class ToDoViewModel : ViewModel() {
     private val repository = ToDoRepository()
+    private var notificationService: TodoNotificationService? = null
     
     // UI 狀態
     private val _todos = mutableStateListOf<ToDoItem>()
@@ -39,6 +40,13 @@ class ToDoViewModel : ViewModel() {
     init {
         // 載入初始資料
         loadTodos()
+    }
+    
+    /**
+     * 初始化通知服務
+     */
+    fun initializeNotificationService(context: Context) {
+        notificationService = TodoNotificationService(context)
     }
     
     /**
