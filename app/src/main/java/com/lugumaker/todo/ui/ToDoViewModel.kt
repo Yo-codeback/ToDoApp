@@ -174,6 +174,13 @@ class ToDoViewModel : ViewModel() {
     }
     
     /**
+     * 取得特定待辦事項
+     */
+    fun getTodo(id: String): ToDoItem? {
+        return _todos.find { it.id == id }
+    }
+    
+    /**
      * 取得已過期的待辦事項
      */
     fun getOverdueTodos(): List<ToDoItem> {
