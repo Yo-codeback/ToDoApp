@@ -74,3 +74,11 @@ app/src/main/java/com/lugumaker/todo/
 2. **資料持久化** - 加入 Room 資料庫儲存
 3. **進階通知** - 實作排程通知和自訂提醒時間
 4. **UI 優化** - 加入動畫效果和更好的使用者體驗
+
+### 2025/07/26 - 圖標更新
+- [x] 建立專用通知圖標 `ic_notification.xml`
+- [x] 建立應用程式圖標 `ic_todo_app.xml`
+- [x] 建立新增按鈕圖標 `ic_add_todo.xml`
+- [x] 更新通知管理類別使用新圖標
+- [x] 更新 AndroidManifest.xml 使用新應用程式圖標
+- [x] 更新 UI 使用自訂圖標

@@ -63,7 +63,7 @@ class TodoNotificationManager(private val context: Context) {
         )
         
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle("待辦事項已過期")
             .setContentText("「${todo.title}」已超過到期時間")
             .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -90,7 +90,7 @@ class TodoNotificationManager(private val context: Context) {
         )
         
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle("待辦事項即將到期")
             .setContentText("「${todo.title}」即將到期")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
