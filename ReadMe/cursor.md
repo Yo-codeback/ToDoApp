@@ -48,3 +48,29 @@
 - **資料層**: Repository Pattern
 - **通知系統**: NotificationManager + NotificationService
 - **架構模式**: MVVM
+
+#### 檔案結構
+```
+app/src/main/java/com/lugumaker/todo/
+├── data/
+│   ├── ToDoItem.kt              # 待辦事項資料類
+│   ├── ToDoRepository.kt        # 資料管理類
+│   └── ToDoRepositoryTest.kt    # 測試檔案
+├── notification/
+│   ├── TodoNotificationManager.kt    # 通知管理
+│   └── TodoNotificationService.kt    # 通知服務
+├── ui/
+│   ├── ToDoScreen.kt            # 主畫面 UI
+│   ├── ToDoViewModel.kt         # ViewModel
+│   └── theme/                   # 主題相關
+│       ├── Color.kt
+│       ├── Theme.kt
+│       └── Type.kt
+└── MainActivity.kt              # 主活動
+```
+
+#### 下一步開發計劃
+1. **桌面小工具功能** - 實作 Widget 顯示今日待辦事項
+2. **資料持久化** - 加入 Room 資料庫儲存
+3. **進階通知** - 實作排程通知和自訂提醒時間
+4. **UI 優化** - 加入動畫效果和更好的使用者體驗
