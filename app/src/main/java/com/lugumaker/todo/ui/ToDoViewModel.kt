@@ -68,6 +68,14 @@ class ToDoViewModel : ViewModel() {
                 dueDate = newTodoDueDate
             )
             _todos.add(todo)
+            
+            // 設定通知
+            notificationService?.let { service ->
+                viewModelScope.launch {
+                    service.scheduleNotificationForTodo(todo)
+                }
+            }
+            
             clearNewTodoForm()
             showAddDialog = false
         }
@@ -79,6 +87,12 @@ class ToDoViewModel : ViewModel() {
     fun toggleComplete(id: String) {
         if (repository.toggleComplete(id)) {
             loadTodos()
+            
+            // 如果完成，取消通知
+            val todo = getTodo(id)
+            if (todo?.isCompleted == true) {
+                notificationService?.cancelNotificationForTodo(id)
+            }
         }
     }
     
