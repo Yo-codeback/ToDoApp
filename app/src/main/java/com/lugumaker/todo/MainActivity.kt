@@ -25,6 +25,12 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val viewModel: ToDoViewModel = viewModel()
+                    
+                    // 初始化通知服務
+                    LaunchedEffect(Unit) {
+                        viewModel.initializeNotificationService(this@MainActivity)
+                    }
+                    
                     ToDoScreen(viewModel = viewModel)
                 }
             }
