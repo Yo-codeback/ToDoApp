@@ -101,6 +101,8 @@ class ToDoViewModel : ViewModel() {
      */
     fun deleteTodo(id: String) {
         if (repository.deleteTodo(id)) {
+            // 取消通知
+            notificationService?.cancelNotificationForTodo(id)
             loadTodos()
         }
     }
@@ -176,5 +178,12 @@ class ToDoViewModel : ViewModel() {
      */
     fun getOverdueTodos(): List<ToDoItem> {
         return _todos.filter { it.isOverdue() }
+    }
+    
+    /**
+     * 檢查並發送通知
+     */
+    fun checkNotifications() {
+        notificationService?.checkAndSendNotifications()
     }
 } 
