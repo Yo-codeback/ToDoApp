@@ -18,7 +18,33 @@
 ### 2025/07/26 - 專案初始化
 - [x] 建立專案文檔
 - [x] 規劃開發任務
-- [ ] 設計資料結構
-- [ ] 實作主介面
-- [ ] 實作通知功能
+- [x] 設計資料結構
+- [x] 實作主介面
+- [x] 實作通知功能
 - [ ] 實作小工具功能
+
+#### 已完成功能
+1. **資料結構設計**
+   - 建立 `ToDoItem` 資料類，包含標題、描述、到期時間、完成狀態等屬性
+   - 建立 `ToDoRepository` 管理類，提供增刪改查功能
+   - 實作過期檢查和即將到期檢查邏輯
+
+2. **主介面實作**
+   - 使用 Jetpack Compose 和 Material 3.0 設計 UI
+   - 建立 `ToDoScreen` 主畫面，包含統計資訊和待辦事項列表
+   - 實作新增、刪除、完成狀態切換功能
+   - 建立 `ToDoViewModel` 管理 UI 狀態
+
+3. **通知功能實作**
+   - 建立 `TodoNotificationManager` 管理本地通知
+   - 建立 `TodoNotificationService` 服務類別
+   - 實作過期和即將到期通知
+   - 整合通知功能到 ViewModel 中
+   - 加入通知權限設定
+
+#### 技術架構
+- **UI 層**: Jetpack Compose + Material 3.0
+- **狀態管理**: ViewModel + State
+- **資料層**: Repository Pattern
+- **通知系統**: NotificationManager + NotificationService
+- **架構模式**: MVVM
