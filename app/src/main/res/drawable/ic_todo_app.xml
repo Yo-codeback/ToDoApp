@@ -12,45 +12,45 @@
     <!-- 清單背景 -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M30,25 L78,25 L78,83 L30,83 Z"/>
+        android:pathData="M25,30 L83,30 L83,78 L25,78 Z"/>
     
-    <!-- 清單線條 -->
+    <!-- 清單項目線條 -->
     <path
         android:strokeColor="#E0E0E0"
-        android:strokeWidth="1"
-        android:pathData="M35,35 L73,35"/>
+        android:strokeWidth="2"
+        android:pathData="M30,40 L78,40"/>
     <path
         android:strokeColor="#E0E0E0"
-        android:strokeWidth="1"
-        android:pathData="M35,45 L73,45"/>
+        android:strokeWidth="2"
+        android:pathData="M30,50 L78,50"/>
     <path
         android:strokeColor="#E0E0E0"
-        android:strokeWidth="1"
-        android:pathData="M35,55 L73,55"/>
+        android:strokeWidth="2"
+        android:pathData="M30,60 L78,60"/>
     <path
         android:strokeColor="#E0E0E0"
-        android:strokeWidth="1"
-        android:pathData="M35,65 L73,65"/>
+        android:strokeWidth="2"
+        android:pathData="M30,70 L78,70"/>
     
-    <!-- 勾選標記 -->
+    <!-- 第一個勾選標記（已完成） -->
     <path
         android:fillColor="#4CAF50"
-        android:pathData="M38,40 L42,44 L50,36 L52,38 L42,48 L38,44 Z"/>
+        android:pathData="M35,35 L40,40 L50,30 L52,32 L40,42 L35,37 Z"/>
     
-    <!-- 第二個勾選標記 -->
+    <!-- 第二個勾選標記（已完成） -->
     <path
         android:fillColor="#4CAF50"
-        android:pathData="M38,50 L42,54 L50,46 L52,48 L42,58 L38,54 Z"/>
+        android:pathData="M35,45 L40,50 L50,40 L52,42 L40,52 L35,47 Z"/>
     
-    <!-- 第三個項目（未完成） -->
+    <!-- 第三個項目（未完成）- 圓圈 -->
     <path
         android:strokeColor="#FF5722"
-        android:strokeWidth="2"
-        android:pathData="M38,60 L42,64 L50,56"/>
+        android:strokeWidth="3"
+        android:pathData="M37,57m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"/>
     
-    <!-- 第四個項目（未完成） -->
+    <!-- 第四個項目（未完成）- 圓圈 -->
     <path
         android:strokeColor="#FF5722"
-        android:strokeWidth="2"
-        android:pathData="M38,70 L42,74 L50,66"/>
+        android:strokeWidth="3"
+        android:pathData="M37,67m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"/>
 </vector> 

@@ -1,97 +1,75 @@
 package com.lugumaker.todo.data
 
+import kotlinx.coroutines.flow.Flow
 import java.time.LocalDateTime
-import java.util.UUID
 
 /**
- * 待辦事項資料管理類
+ * 待辦事項 Repository
  */
-class ToDoRepository {
-    private val _todos = mutableListOf<ToDoItem>()
-    val todos: List<ToDoItem> get() = _todos.toList()
+class TodoRepository(private val todoDao: TodoDao) {
     
-    /**
-     * 新增待辦事項
-     */
-    fun addTodo(title: String, description: String = "", dueDate: LocalDateTime? = null): ToDoItem {
-        val todo = ToDoItem(
-            id = UUID.randomUUID().toString(),
-            title = title,
-            description = description,
-            dueDate = dueDate
-        )
-        _todos.add(todo)
-        return todo
+    // 獲取所有待辦事項
+    fun getAllTodos(): Flow<List<TodoEntity>> = todoDao.getAllTodos()
+    
+    // 獲取活躍待辦事項
+    fun getActiveTodos(): Flow<List<TodoEntity>> = todoDao.getActiveTodos()
+    
+    // 獲取已完成待辦事項
+    fun getCompletedTodos(): Flow<List<TodoEntity>> = todoDao.getCompletedTodos()
+    
+    // 獲取今日待辦事項
+    fun getTodayTodos(): Flow<List<TodoEntity>> {
+        val today = LocalDateTime.now().toLocalDate().atStartOfDay()
+        return todoDao.getTodayTodos(today)
     }
     
-    /**
-     * 更新待辦事項
-     */
-    fun updateTodo(todo: ToDoItem): Boolean {
-        val index = _todos.indexOfFirst { it.id == todo.id }
-        if (index != -1) {
-            _todos[index] = todo.copy(updatedAt = LocalDateTime.now())
-            return true
-        }
-        return false
+    // 獲取過期待辦事項
+    fun getOverdueTodos(): Flow<List<TodoEntity>> {
+        val now = LocalDateTime.now()
+        return todoDao.getOverdueTodos(now)
     }
     
-    /**
-     * 刪除待辦事項
-     */
-    fun deleteTodo(id: String): Boolean {
-        val index = _todos.indexOfFirst { it.id == id }
-        if (index != -1) {
-            _todos.removeAt(index)
-            return true
-        }
-        return false
+    // 獲取即將到期待辦事項
+    fun getDueSoonTodos(): Flow<List<TodoEntity>> {
+        val now = LocalDateTime.now()
+        val tomorrow = now.plusDays(1)
+        return todoDao.getDueSoonTodos(now, tomorrow)
     }
     
-    /**
-     * 取得待辦事項
-     */
-    fun getTodo(id: String): ToDoItem? {
-        return _todos.find { it.id == id }
-    }
+    // 根據優先級獲取待辦事項
+    fun getTodosByPriority(priority: Priority): Flow<List<TodoEntity>> = 
+        todoDao.getTodosByPriority(priority)
     
-    /**
-     * 切換完成狀態
-     */
-    fun toggleComplete(id: String): Boolean {
-        val todo = getTodo(id) ?: return false
+    // 根據分類獲取待辦事項
+    fun getTodosByCategory(category: String): Flow<List<TodoEntity>> = 
+        todoDao.getTodosByCategory(category)
+    
+    // 新增待辦事項
+    suspend fun insertTodo(todo: TodoEntity): Long = todoDao.insertTodo(todo)
+    
+    // 更新待辦事項
+    suspend fun updateTodo(todo: TodoEntity) = todoDao.updateTodo(todo)
+    
+    // 刪除待辦事項
+    suspend fun deleteTodo(todo: TodoEntity) = todoDao.deleteTodo(todo)
+    
+    // 刪除已完成待辦事項
+    suspend fun deleteCompletedTodos() = todoDao.deleteCompletedTodos()
+    
+    // 切換完成狀態
+    suspend fun toggleCompletionStatus(todo: TodoEntity) {
         val updatedTodo = todo.copy(
             isCompleted = !todo.isCompleted,
             updatedAt = LocalDateTime.now()
         )
-        return updateTodo(updatedTodo)
+        todoDao.updateTodo(updatedTodo)
     }
     
-    /**
-     * 取得未完成的待辦事項
-     */
-    fun getIncompleteTodos(): List<ToDoItem> {
-        return _todos.filter { !it.isCompleted }
-    }
-    
-    /**
-     * 取得已完成的待辦事項
-     */
-    fun getCompletedTodos(): List<ToDoItem> {
-        return _todos.filter { it.isCompleted }
-    }
-    
-    /**
-     * 取得即將到期的待辦事項
-     */
-    fun getDueSoonTodos(): List<ToDoItem> {
-        return _todos.filter { it.isDueSoon() }
-    }
-    
-    /**
-     * 取得已過期的待辦事項
-     */
-    fun getOverdueTodos(): List<ToDoItem> {
-        return _todos.filter { it.isOverdue() }
+    // 獲取統計資訊
+    fun getActiveTodoCount(): Flow<Int> = todoDao.getActiveTodoCount()
+    fun getCompletedTodoCount(): Flow<Int> = todoDao.getCompletedTodoCount()
+    fun getOverdueTodoCount(): Flow<Int> {
+        val now = LocalDateTime.now()
+        return todoDao.getOverdueTodoCount(now)
     }
 } 

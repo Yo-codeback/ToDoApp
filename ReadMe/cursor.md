@@ -53,15 +53,15 @@
 ```
 app/src/main/java/com/lugumaker/todo/
 ├── data/
-│   ├── ToDoItem.kt              # 待辦事項資料類
-│   ├── ToDoRepository.kt        # 資料管理類
-│   └── ToDoRepositoryTest.kt    # 測試檔案
-├── notification/
-│   ├── TodoNotificationManager.kt    # 通知管理
-│   └── TodoNotificationService.kt    # 通知服務
+│   ├── TodoEntity.kt            # 待辦事項資料實體
+│   ├── TodoDao.kt               # 資料庫存取介面
+│   ├── TodoDatabase.kt          # Room 資料庫
+│   ├── TodoRepository.kt        # 資料管理類
+│   └── Converters.kt            # 類型轉換器
 ├── ui/
-│   ├── ToDoScreen.kt            # 主畫面 UI
-│   ├── ToDoViewModel.kt         # ViewModel
+│   ├── TodoScreen.kt            # 主畫面 UI
+│   ├── TodoViewModel.kt         # ViewModel
+│   ├── AddTodoDialog.kt         # 新增對話框
 │   └── theme/                   # 主題相關
 │       ├── Color.kt
 │       ├── Theme.kt
@@ -70,10 +70,13 @@ app/src/main/java/com/lugumaker/todo/
 ```
 
 #### 下一步開發計劃
-1. **桌面小工具功能** - 實作 Widget 顯示今日待辦事項
-2. **資料持久化** - 加入 Room 資料庫儲存
-3. **進階通知** - 實作排程通知和自訂提醒時間
-4. **UI 優化** - 加入動畫效果和更好的使用者體驗
+1. **重新實作通知功能** - 基於新的資料庫架構
+2. **重新實作桌面小工具** - 基於新的資料庫架構
+3. **進階功能** - 實作排程通知和自訂提醒時間
+4. **資料匯入匯出** - 支援備份和還原功能
+5. **主題切換** - 支援深色/淺色主題
+6. **搜尋功能** - 實作待辦事項搜尋
+7. **統計圖表** - 加入完成率統計圖表
 
 ### 2025/07/26 - 圖標更新
 - [x] 建立專用通知圖標 `ic_notification.xml`
@@ -82,3 +85,49 @@ app/src/main/java/com/lugumaker/todo/
 - [x] 更新通知管理類別使用新圖標
 - [x] 更新 AndroidManifest.xml 使用新應用程式圖標
 - [x] 更新 UI 使用自訂圖標
+
+### 2025/07/26 - 桌面小工具功能實作
+- [x] 建立 Widget 佈局檔案 `todo_widget.xml`
+- [x] 建立 Widget 項目佈局 `todo_widget_item.xml`
+- [x] 建立 Widget 背景和圖標
+- [x] 實作 `TodoWidgetProvider` 管理 Widget 更新
+- [x] 實作 `TodoWidgetService` 提供數據
+- [x] 建立 Widget 資訊檔案 `todo_widget_info.xml`
+- [x] 更新 AndroidManifest.xml 註冊 Widget
+- [x] 整合 Widget 更新到 ViewModel
+- [x] 更新 UI 支援 Widget 同步
+
+#### Widget 功能特色
+- **今日待辦事項顯示**：只顯示今天的待辦事項
+- **完成狀態圖標**：綠色勾選表示已完成，白色方框表示未完成
+- **時間顯示**：顯示到期時間（HH:mm 格式）
+- **統計資訊**：顯示完成進度（已完成/總數）
+- **點擊開啟**：點擊 Widget 或項目可開啟應用程式
+- **自動更新**：新增、完成、刪除待辦事項時自動更新 Widget
+- **可調整大小**：支援水平和垂直調整大小
+
+### 2025/07/26 - 應用程式完全重構
+- [x] 重新設計資料庫架構，使用 Room 持久化儲存
+- [x] 建立新的資料實體 `TodoEntity` 和 `Priority` 列舉
+- [x] 實作 Room DAO 和資料庫類別
+- [x] 重新設計 Repository 模式，使用 Flow 響應式程式設計
+- [x] 建立全新的 ViewModel，支援狀態管理
+- [x] 重新設計 UI，使用 Material 3.0 和現代化設計
+- [x] 加入優先級系統（低、中、高、緊急）
+- [x] 加入分類功能
+- [x] 實作美觀的統計卡片
+- [x] 加入動畫效果和展開/收起功能
+- [x] 重新設計新增待辦事項對話框
+- [x] 移除舊的通知和 Widget 功能（可後續重新實作）
+
+#### 新功能特色
+- **資料持久化**：使用 Room 資料庫，資料永久儲存
+- **響應式 UI**：使用 Flow 和 StateFlow，UI 自動更新
+- **優先級管理**：四級優先級系統，視覺化優先級指示器
+- **分類功能**：支援自訂分類標籤
+- **現代化設計**：Material 3.0 設計語言，美觀的卡片佈局
+- **動畫效果**：平滑的展開/收起動畫
+- **統計資訊**：即時顯示進行中、已完成、已過期數量
+- **智慧時間顯示**：今天、明天、完整日期格式
+- **完成狀態管理**：可展開查看已完成項目
+- **一鍵清除**：快速清除所有已完成項目
